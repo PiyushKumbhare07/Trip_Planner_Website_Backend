@@ -77,7 +77,7 @@ public class BookingServiceImpl implements BookingService {
 	@Override
 	public BookingDTO getBooking(long id) {
 		Bookings b=br.findById(id).orElseThrow(()->new ResourceNotFoundException("Invalid booking ID , Emp not found !!!!"));
-		  System.out.println(b.getTickets());
+		  
 		return mapper.map(b, BookingDTO.class);
 	}
 	public List<Ticket> getTicketsForUser(long id){
