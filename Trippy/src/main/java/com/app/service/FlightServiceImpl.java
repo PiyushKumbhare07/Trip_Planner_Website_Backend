@@ -61,6 +61,12 @@ public class FlightServiceImpl implements FlightService {
 		return fr.getFlights(to, from, passengers, dep);
 	}
 
+	@Override
+	public Flight getSingleFlight(long id) {
+		Flight flight=fr.findById(id).orElseThrow(()->new ResourceNotFoundException("flight not found"));
+		return flight;
+	}
+
 	
 	
 	

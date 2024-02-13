@@ -19,4 +19,5 @@ Location getByID(long id);
 ApiResponse uploadImage(Long empId, MultipartFile image) throws IOException;
 List<Flight> getAllFlights();
 List<Flight> getFlights(String to,String from,LocalDate dep,int passengers);
+Flight getSingleFlight(long id);
 }

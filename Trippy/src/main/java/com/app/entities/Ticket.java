@@ -36,7 +36,9 @@ public class Ticket {
     @JoinColumn(name = "FlightID")
     private Flight flight;
 //    private int HotelID;
-//    private int HolidayID;
+    @OneToOne
+    @JoinColumn(name="HolidayID")
+    private Holiday holiday;
     private double price;
     private String SeatNo;
     
