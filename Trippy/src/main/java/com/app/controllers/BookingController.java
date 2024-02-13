@@ -47,4 +47,5 @@ public ResponseEntity<?> getBooking(@PathVariable long id){
 public ResponseEntity<?> getuserTickets(@PathVariable long id){
 	return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.getTicketsForUser(id));
 }
+
 }
