@@ -13,10 +13,14 @@ import com.app.dto.ApiResponse;
 import com.app.entities.Flight;
 import com.app.entities.Location;
 
+
+
+
 public interface FlightService {
 List<Location> getAllLocations();
 Location getByID(long id);
 ApiResponse uploadImage(Long empId, MultipartFile image) throws IOException;
 List<Flight> getAllFlights();
 List<Flight> getFlights(String to,String from,LocalDate dep,int passengers);
+Flight getSingleFlight(long id);
 }

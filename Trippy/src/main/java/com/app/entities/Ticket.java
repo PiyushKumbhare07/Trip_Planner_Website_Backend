@@ -28,21 +28,21 @@ public class Ticket {
     @JoinColumn(name = "BookingID")
     @JsonIgnore
     private Bookings booking;
-//    @OneToOne
-//    @JoinColumn(name = "TicketID")
-//    private Bookings booking;
 
     @OneToOne
     @JoinColumn(name = "FlightID")
     private Flight flight;
-//    private int HotelID;
-//    private int HolidayID;
+
+    @OneToOne
+    @JoinColumn(name="HolidayID")
+    private Holiday holiday;
+
     private double price;
     private String SeatNo;
-    
+
     @OneToOne(mappedBy = "ticket")
     private Traveller traveller;
+
     @CreatedDate
     private LocalDate DateOfPurchase;
-    
 }

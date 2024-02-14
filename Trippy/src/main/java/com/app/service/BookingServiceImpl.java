@@ -16,11 +16,13 @@ import com.app.dto.ApiResponse;
 import com.app.dto.BookingDTO;
 import com.app.entities.Bookings;
 import com.app.entities.Flight;
+import com.app.entities.Holiday;
 import com.app.entities.Ticket;
 import com.app.entities.Traveller;
 import com.app.entities.User;
 import com.app.repository.BookingsRepo;
 import com.app.repository.FlightRepo;
+import com.app.repository.HolidayRepo;
 import com.app.repository.TicketsRepo;
 import com.app.repository.TravellerRepo;
 import com.app.repository.UserInterface;
@@ -38,6 +40,8 @@ public class BookingServiceImpl implements BookingService {
     private FlightRepo fr;
     @Autowired
     private TravellerRepo travRepo;
+    @Autowired
+    private HolidayRepo holidayRepo;
     @Autowired
     private ModelMapper mapper;
     //BookingDto
@@ -69,8 +73,7 @@ public class BookingServiceImpl implements BookingService {
 	    br.save(booking);
 	    f.setCapacity(f.getCapacity()-travellers.size());
 	   
-//	    System.out.println(booking.getTickets());
-//	    return new ApiResponse("created");
+
 	    return mapper.map(booking, BookingDTO.class);
 	   
 	}
@@ -82,6 +85,40 @@ public class BookingServiceImpl implements BookingService {
 	}
 	public List<Ticket> getTicketsForUser(long id){
 		return ur.getTicketsByUserId(id);
+	}
+	@Override
+	public BookingDTO createHolidayBooking(long userID, long holidayID, List<Traveller> travellers,String type) {
+		Holiday holiday=holidayRepo.findById(holidayID).orElseThrow(() -> new ResourceNotFoundException("Invalid holiday ID , Emp not found !!!!"));
+		User u=ur.findById(userID)
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid user ID , Emp not found !!!!"));
+		Bookings booking=new Bookings(u,LocalDate.now());
+		List<Ticket> tickets = new ArrayList<>();
+	    for(Traveller trav:travellers) {
+	    	Ticket t=new Ticket();
+	    	t.setBooking(booking);
+	    	t.setHoliday(holiday);
+	    	t.setDateOfPurchase(LocalDate.now());
+	    	Random random = new Random();
+	       if(type=="Adult") {
+	    	   t.setPrice(holiday.getPricePerAdult());
+	       }else {
+	    	   t.setPrice(holiday.getPricePerChild());
+	       }
+	        
+	        trav.setTicket(t);
+	        travRepo.save(trav);
+	        t.setTraveller(trav);
+	        tr.save(t);
+	        tickets.add(t);
+	    }
+	   
+	    booking.setTickets(tickets);
+	    br.save(booking);
+	    
+	   
+
+	    return mapper.map(booking, BookingDTO.class);
+		
 	}
 
 }

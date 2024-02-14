@@ -52,4 +52,10 @@ public ResponseEntity<?> getFlights(@PathVariable String to,@PathVariable String
 	return ResponseEntity.status(HttpStatus.OK).body(fs.getFlights(to, from, dep1, passengers));
 	
 }
+@GetMapping("/{id}")
+public ResponseEntity<?> getSingleFlight(@PathVariable long id) {
+	
+	return ResponseEntity.status(HttpStatus.OK).body(fs.getSingleFlight(id));
+	
+}
 }

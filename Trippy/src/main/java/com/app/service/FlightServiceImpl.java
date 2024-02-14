@@ -19,6 +19,7 @@ import com.app.entities.Location;
 import com.app.repository.FlightRepo;
 import com.app.repository.LocationRepo;
 
+
 @Service
 @Transactional
 public class FlightServiceImpl implements FlightService {
@@ -59,6 +60,12 @@ public class FlightServiceImpl implements FlightService {
 		
 		
 		return fr.getFlights(to, from, passengers, dep);
+	}
+
+	@Override
+	public Flight getSingleFlight(long id) {
+		Flight flight=fr.findById(id).orElseThrow(()->new ResourceNotFoundException("flight not found"));
+		return flight;
 	}
 
 	
