@@ -42,7 +42,7 @@ private String userName;
 private String email;
 @Digits(integer = 10, fraction = 0)
 private long phoneNo;
-
+private String password;
 @OneToMany(mappedBy = "user",fetch = FetchType.EAGER, 
 cascade = CascadeType.ALL, 
 orphanRemoval = true )

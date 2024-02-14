@@ -19,6 +19,7 @@ import com.app.entities.Location;
 import com.app.repository.FlightRepo;
 import com.app.repository.LocationRepo;
 
+
 @Service
 @Transactional
 public class FlightServiceImpl implements FlightService {

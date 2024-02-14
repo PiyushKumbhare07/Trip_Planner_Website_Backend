@@ -1,6 +1,7 @@
 package com.app.entities;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import javax.persistence.*;
@@ -24,6 +25,11 @@ public class Flight {
     private String Airlines;
     private LocalDate Departure;
     private LocalDate Arrival;
+    @Column(name = "arrival_time", columnDefinition = "TIME")
+    private LocalTime arrivalTime;
+    
+    @Column(name = "departure_time", columnDefinition = "TIME")
+    private LocalTime departureTime;
     private String toArrival;
     private String fromDestination;
     private int Capacity;

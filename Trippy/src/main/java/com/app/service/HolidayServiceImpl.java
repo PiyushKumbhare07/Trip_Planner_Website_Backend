@@ -31,7 +31,7 @@ public class HolidayServiceImpl implements HolidayService {
 
 	@Override
 	public Holiday getByID(long id) {
-		Holiday holiday=hr.findById(id).orElseThrow(()->new ResourceNotFoundException("Holiday id not found"));
+		Holiday holiday=hr.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid flight ID , Emp not found !!!!"));
 		return null;
 	}
 

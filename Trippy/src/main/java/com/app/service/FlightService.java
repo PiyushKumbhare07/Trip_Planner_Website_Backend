@@ -13,6 +13,9 @@ import com.app.dto.ApiResponse;
 import com.app.entities.Flight;
 import com.app.entities.Location;
 
+
+
+
 public interface FlightService {
 List<Location> getAllLocations();
 Location getByID(long id);
