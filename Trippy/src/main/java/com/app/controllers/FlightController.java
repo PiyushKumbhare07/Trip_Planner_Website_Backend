@@ -22,7 +22,7 @@ import com.app.service.FlightService;
 
 @RestController
 @RequestMapping("/flight")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
 @Validated
 public class FlightController {
 	
@@ -56,6 +56,12 @@ public ResponseEntity<?> getFlights(@PathVariable String to,@PathVariable String
 public ResponseEntity<?> getSingleFlight(@PathVariable long id) {
 	
 	return ResponseEntity.status(HttpStatus.OK).body(fs.getSingleFlight(id));
+	
+}
+@GetMapping("/to/{dest}")
+public ResponseEntity<?> getAllFlightsbydest(@PathVariable String dest) {
+	
+	return ResponseEntity.status(HttpStatus.OK).body(fs.getAllToDestination(dest));
 	
 }
 }

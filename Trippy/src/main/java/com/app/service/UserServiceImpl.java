@@ -26,13 +26,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ApiResponse delete(long id) {
 		User ogUser=ur.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found"));
+		
 		ur.delete(ogUser);
-		if(ur.findById(id)==null) {
-			return new  ApiResponse("Deleted");
-		}
-		else {
+		if(ur.existsById(id)) {
 			return new  ApiResponse("Not Deleted");
 		}
+		else {
+			return new  ApiResponse(" Deleted");
+		}
+	
 	}
 
 	@Override
