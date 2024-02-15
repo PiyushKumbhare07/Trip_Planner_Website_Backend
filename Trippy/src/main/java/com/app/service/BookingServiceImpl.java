@@ -46,7 +46,7 @@ public class BookingServiceImpl implements BookingService {
     private ModelMapper mapper;
     //BookingDto
 	@Override
-	public BookingDTO createBooking(List<Traveller> travellers,long userID, long flightID) {
+	public BookingDTO createBooking(List<Traveller> travellers,long userID, long flightID,String type) {
 		Flight f=fr.findById(flightID)
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid flight ID , Emp not found !!!!"));
 		User u=ur.findById(userID)
@@ -58,10 +58,16 @@ public class BookingServiceImpl implements BookingService {
 	    	t.setBooking(booking);
 	    	t.setFlight(f);
 	    	t.setDateOfPurchase(LocalDate.now());
+	    	t.setType(type);
 	    	Random random = new Random();
 	        int SNo = random.nextInt(f.getCapacity()) + 1;
 	        t.setSeatNo(String.valueOf(SNo));
-	        t.setPrice(f.getEconomyPrice());
+	        if(type.equals("Business")) {
+	        	t.setPrice(f.getBusinessClassPrice());
+	        }else {
+	        	t.setPrice(f.getEconomyPrice());
+	        }
+	        
 	        trav.setTicket(t);
 	        travRepo.save(trav);
 	        t.setTraveller(trav);
