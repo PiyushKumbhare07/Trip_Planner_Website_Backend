@@ -32,7 +32,7 @@ public class Ticket {
     @OneToOne
     @JoinColumn(name = "FlightID")
     private Flight flight;
-
+    private String Type;
     @OneToOne
     @JoinColumn(name="HolidayID")
     private Holiday holiday;

@@ -10,7 +10,7 @@ import com.app.entities.Ticket;
 import com.app.entities.Traveller;
 
 public interface BookingService {
-	BookingDTO createBooking( List<Traveller> travellers,long userID, long flightID );
+	BookingDTO createBooking( List<Traveller> travellers,long userID, long flightID,String type );
 	BookingDTO getBooking(long id);
 	 List<Ticket> getTicketsForUser(long id);
 	 BookingDTO createHolidayBooking(long userID,long holidayID,List<Traveller> travellers,String type);

@@ -37,7 +37,7 @@ private FlightService fService;
 	//return ->list of travellers,tickets,flight,bookingID
 @PostMapping("/newbooking")
 public ResponseEntity<?> createBooking(@RequestBody CreateBookingRequest request){
-	return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.createBooking(request.getTravellers(), request.getUserID(), request.getFlightID()));
+	return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.createBooking(request.getTravellers(), request.getUserID(), request.getFlightID(),request.getType()));
 }
 @GetMapping("/{id}")
 public ResponseEntity<?> getBooking(@PathVariable long id){

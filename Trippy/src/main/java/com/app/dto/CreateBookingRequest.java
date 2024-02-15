@@ -17,4 +17,5 @@ public class CreateBookingRequest {
 	 private long userID;
 	    private long flightID;
 	    private List<Traveller> travellers;
+	    private String type;
 }
