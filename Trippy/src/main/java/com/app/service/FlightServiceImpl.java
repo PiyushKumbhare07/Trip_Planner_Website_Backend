@@ -68,6 +68,12 @@ public class FlightServiceImpl implements FlightService {
 		return flight;
 	}
 
+	@Override
+	public List<Flight> getAllToDestination(String dest) {
+	
+		return fr.findBytoArrival(dest);
+	}
+
 	
 	
 	
