@@ -17,7 +17,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserDTO {
+public class UserDTOSignedIN {
     private long userID;
     private String userName;
     @Email
@@ -26,7 +26,6 @@ public class UserDTO {
     private long phoneNo;
     private String gender;
     private LocalDate DateOfBirth;
-    private String password;
-    @JsonIgnore
-    private List<BookingDTO> bookings;
+  
+    
 }

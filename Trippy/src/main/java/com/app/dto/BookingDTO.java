@@ -16,8 +16,8 @@ import lombok.ToString;
 @Setter
 @ToString
 public class BookingDTO {
-	 private long bookingId;
-	    private LocalDate bookingDate;
+	 private long BookingID;
+	    private LocalDate BookingDate;
 	    private List<Ticket> tickets;
 	    
 }
