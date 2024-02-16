@@ -14,7 +14,7 @@ import com.app.entities.User;
 public interface UserInterface extends JpaRepository<User, Long>{
 	@Query("SELECT b.tickets FROM Bookings b WHERE b.user.UserID = :id")
 	List<Ticket> getTicketsByUserId(@Param("id") long id);
-
-	
+    User findByEmail(String email);
+    boolean existsByEmail(String email);
 
 }

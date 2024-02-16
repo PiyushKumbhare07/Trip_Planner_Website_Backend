@@ -14,4 +14,5 @@ public interface BookingService {
 	BookingDTO getBooking(long id);
 	 List<Ticket> getTicketsForUser(long id);
 	 BookingDTO createHolidayBooking(long userID,long holidayID,List<Traveller> travellers,String type);
+	 List<BookingDTO>getUserBookings(long id);
 }

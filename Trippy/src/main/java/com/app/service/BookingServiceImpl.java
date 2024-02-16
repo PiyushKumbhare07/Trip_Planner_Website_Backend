@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -96,7 +97,7 @@ public class BookingServiceImpl implements BookingService {
 	public BookingDTO createHolidayBooking(long userID, long holidayID, List<Traveller> travellers,String type) {
 		Holiday holiday=holidayRepo.findById(holidayID).orElseThrow(() -> new ResourceNotFoundException("Invalid holiday ID , Emp not found !!!!"));
 		User u=ur.findById(userID)
-				.orElseThrow(() -> new ResourceNotFoundException("Invalid user ID , Emp not found !!!!"));
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid user ID , user not found !!!!"));
 		Bookings booking=new Bookings(u,LocalDate.now());
 		List<Ticket> tickets = new ArrayList<>();
 	    for(Traveller trav:travellers) {
@@ -125,6 +126,16 @@ public class BookingServiceImpl implements BookingService {
 
 	    return mapper.map(booking, BookingDTO.class);
 		
+	}
+	@Override
+	public List<BookingDTO> getUserBookings(long id) {
+		User u=ur.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid user ID , user not found !!!!"));
+		List<Bookings> bookings=br.findByuser(u);
+		
+		return bookings.stream()
+                .map(booking -> mapper.map(booking, BookingDTO.class))
+                .collect(Collectors.toList());
 	}
 
 }

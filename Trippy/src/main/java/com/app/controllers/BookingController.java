@@ -43,9 +43,13 @@ public ResponseEntity<?> createBooking(@RequestBody CreateBookingRequest request
 public ResponseEntity<?> getBooking(@PathVariable long id){
 	return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.getBooking(id));//checking github
 }
-@GetMapping("/user/{id}")
+@GetMapping("/userTickets/{id}")
 public ResponseEntity<?> getuserTickets(@PathVariable long id){
 	return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.getTicketsForUser(id));
+}
+@GetMapping("user/{id}")
+public ResponseEntity<?> getUserBooking(@PathVariable long id){
+	return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.getUserBookings(id));
 }
 
 }
