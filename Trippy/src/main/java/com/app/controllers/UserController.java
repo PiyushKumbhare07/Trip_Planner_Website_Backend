@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dto.UserDTO;
+import com.app.dto.UserPasswordDTO;
 import com.app.dto.UserSignInDTO;
 import com.app.entities.User;
 import com.app.repository.UserInterface;
@@ -44,15 +45,18 @@ public class UserController {
      @PostMapping("/signup")
 	public ResponseEntity<?> Create(@RequestBody @Valid UserDTO user) {
 		return ResponseEntity.status(HttpStatus.OK).body(uservice.Create(user));
-	
 	}
-
+    
 	@PutMapping("update/{id}")
 	public ResponseEntity<?> update(@RequestBody @Valid UserDTO user, @PathVariable long id) {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(uservice.update(user, id));
 	}
-
+	
+	@PutMapping("/update")
+	public ResponseEntity<?> updatePassword(@RequestBody UserPasswordDTO user) {
+		return ResponseEntity.status(HttpStatus.OK).body(uservice.updatePassword(user.getUserId(), user.getNewPassword()));
+	}
 	@GetMapping("/{id}")
 	public ResponseEntity<?> get(@PathVariable long id) {
 		

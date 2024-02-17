@@ -1,5 +1,7 @@
 package com.app.service;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
@@ -83,6 +85,18 @@ public class UserServiceImpl implements UserService {
 	        
 		return null;
 	}
+
+	@Override
+    public boolean updatePassword(long userId, String newPassword) {
+        Optional<User> optionalUser = ur.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            user.setPassword(newPassword);    
+            ur.save(user);
+            return true;
+        }
+        return false;
+    }
 
 
 }
