@@ -63,6 +63,7 @@ public class UserServiceImpl implements UserService {
 		mapper.map(user,ogUser);
 		System.out.println(ogUser.getUserID());
 		 ogUser.setUserName(user.getUserName());
+		    ogUser.setAddress(user.getAddress());
 		    ogUser.setEmail(user.getEmail());
 		    ogUser.setPhoneNo(user.getPhoneNo());
 		    ogUser.setPassword(user.getPassword());
@@ -79,8 +80,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTOSignedIN SignIn(String email, String password) {
 		 User u = ur.findByEmail(email);
+		 System.out.println("USer details are"+u.getPhoneNo());
 	        if (u != null && passwordEncoder.matches(password, u.getPassword())) {
-	            return mapper.map(u, UserDTOSignedIN.class);
+	        	UserDTOSignedIN us=mapper.map(u, UserDTOSignedIN.class);
+	        	System.out.println(us.getUserName());
+	            return us;
 	        }
 	        
 		return null;
