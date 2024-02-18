@@ -34,8 +34,8 @@ public class Flight {
     private String fromDestination;
     private int Capacity;
     private int stops;
-    private double EconomyPrice;
-    private double BusinessClassPrice;
+    private int EconomyPrice;
+    private int BusinessClassPrice;
 
     @OneToMany(mappedBy = "flight",fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
     @JsonIgnore

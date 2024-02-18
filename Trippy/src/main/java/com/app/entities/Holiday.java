@@ -30,10 +30,10 @@ public class Holiday {
     private String description;
     
     @Column(nullable = false)
-    private double pricePerAdult;
+    private int pricePerAdult;
     
     @Column(nullable = false)
-    private double pricePerChild;
+    private int pricePerChild;
     
     @OneToMany(mappedBy = "holiday")
     @JsonIgnore

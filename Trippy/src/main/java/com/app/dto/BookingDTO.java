@@ -19,5 +19,5 @@ public class BookingDTO {
 	 private long BookingID;
 	    private LocalDate BookingDate;
 	    private List<Ticket> tickets;
-	    
+	    private int Finalprice;
 }

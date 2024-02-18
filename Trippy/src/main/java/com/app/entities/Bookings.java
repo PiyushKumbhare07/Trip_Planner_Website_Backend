@@ -41,7 +41,7 @@ public class Bookings {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UserID")
     private User user;
-    private double price;
+    private int Finalprice;
   
     @OneToMany(mappedBy = "booking", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets;
