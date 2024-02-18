@@ -54,7 +54,7 @@ public class BookingServiceImpl implements BookingService {
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid user ID , Emp not found !!!!"));
 		Bookings booking=new Bookings(u,LocalDate.now());
 		List<Ticket> tickets = new ArrayList<>();
-		double sum=0;
+	   
 	    for(Traveller trav:travellers) {
 	    	Ticket t=new Ticket();
 	    	t.setBooking(booking);
@@ -66,19 +66,23 @@ public class BookingServiceImpl implements BookingService {
 	        t.setSeatNo(String.valueOf(SNo));
 	        if(type.equals("Business")) {
 	        	t.setPrice(f.getBusinessClassPrice());
-	        	sum+=f.getBusinessClassPrice();
+	        
 	        }else {
 	        	t.setPrice(f.getEconomyPrice());
-	        	sum+=f.getBusinessClassPrice();
+	        	
 	        }
-	        booking.setPrice(sum);
 	        trav.setTicket(t);
 	        travRepo.save(trav);
 	        t.setTraveller(trav);
 	        tr.save(t);
 	        tickets.add(t);
 	    }
-	   
+	    if(type.equals("Business")) {
+        	booking.setFinalprice((travellers.size())*(f.getBusinessClassPrice()));
+        }else {
+        	booking.setFinalprice((travellers.size())*(f.getEconomyPrice()));
+        	
+        }
 	    booking.setTickets(tickets);
 	    br.save(booking);
 	    f.setCapacity(f.getCapacity()-travellers.size());

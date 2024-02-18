@@ -22,7 +22,7 @@ import com.app.service.FlightService;
 
 @RestController
 @RequestMapping("/flight")
-@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"})
+@CrossOrigin(origins = {"http://localhost:3000","http://localhost:3001"},allowCredentials = "true")
 @Validated
 public class FlightController {
 	

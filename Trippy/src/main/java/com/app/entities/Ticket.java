@@ -36,8 +36,8 @@ public class Ticket {
     @OneToOne
     @JoinColumn(name="HolidayID")
     private Holiday holiday;
-
-    private double price;
+    @Column(columnDefinition = "double default 0.0")
+    private int price;
     private String SeatNo;
 
     @OneToOne(mappedBy = "ticket")
