@@ -54,6 +54,7 @@ public class BookingServiceImpl implements BookingService {
 				.orElseThrow(() -> new ResourceNotFoundException("Invalid user ID , Emp not found !!!!"));
 		Bookings booking=new Bookings(u,LocalDate.now());
 		List<Ticket> tickets = new ArrayList<>();
+		double sum=0;
 	    for(Traveller trav:travellers) {
 	    	Ticket t=new Ticket();
 	    	t.setBooking(booking);
@@ -65,10 +66,12 @@ public class BookingServiceImpl implements BookingService {
 	        t.setSeatNo(String.valueOf(SNo));
 	        if(type.equals("Business")) {
 	        	t.setPrice(f.getBusinessClassPrice());
+	        	sum+=f.getBusinessClassPrice();
 	        }else {
 	        	t.setPrice(f.getEconomyPrice());
+	        	sum+=f.getBusinessClassPrice();
 	        }
-	        
+	        booking.setPrice(sum);
 	        trav.setTicket(t);
 	        travRepo.save(trav);
 	        t.setTraveller(trav);
@@ -136,6 +139,19 @@ public class BookingServiceImpl implements BookingService {
 		return bookings.stream()
                 .map(booking -> mapper.map(booking, BookingDTO.class))
                 .collect(Collectors.toList());
+	}
+	@Override
+	public ApiResponse cancelBooking(long id) {
+		Bookings bookings=br.findById(id).orElseThrow(()->new ResourceNotFoundException("Invalid booking ID , Emp not found !!!!"));
+		 for (Ticket ticket : bookings.getTickets()) {
+		        ticket.setBooking(null); 
+		    }
+
+		 br.delete(bookings);
+	    if (br.existsById(id)) {
+	        return new ApiResponse("not deleted");
+	    }
+	    return new ApiResponse("deleted");
 	}
 
 }

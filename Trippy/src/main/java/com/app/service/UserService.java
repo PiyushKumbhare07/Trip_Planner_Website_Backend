@@ -11,4 +11,5 @@ ApiResponse Create(UserDTO user);
 UserDTO update(UserDTO user,long id);
 UserDTO get(long id);
 UserDTOSignedIN SignIn(String email,String password);
+boolean updatePassword(long userId, String newPassword);
 }

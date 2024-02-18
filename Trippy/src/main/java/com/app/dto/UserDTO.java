@@ -27,6 +27,7 @@ public class UserDTO {
     private String gender;
     private LocalDate DateOfBirth;
     private String password;
+    private String address;
     @JsonIgnore
     private List<BookingDTO> bookings;
 }

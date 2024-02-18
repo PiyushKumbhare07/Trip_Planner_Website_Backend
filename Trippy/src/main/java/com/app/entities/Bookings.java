@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -40,7 +41,8 @@ public class Bookings {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UserID")
     private User user;
-
+    private double price;
+  
     @OneToMany(mappedBy = "booking", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ticket> tickets;
 
