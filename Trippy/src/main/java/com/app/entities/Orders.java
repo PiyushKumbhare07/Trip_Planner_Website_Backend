@@ -29,9 +29,8 @@ public class Orders {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long id;
-
-	private String OrderID;
-	
+    private long id;
+	 private String orderID;
+	private String status;
     private long bookingsID;
 }

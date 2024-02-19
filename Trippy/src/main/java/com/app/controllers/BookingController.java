@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.app.custom_exceptions.ResourceNotFoundException;
+import com.app.dto.ApiResponse;
 import com.app.dto.CreateBookingRequest;
 import com.app.dto.PayementDTO;
 import com.app.entities.Bookings;
@@ -71,7 +74,7 @@ public ResponseEntity<?> getUserBooking(@PathVariable long id){
 	return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.getUserBookings(id));
 }
 @PostMapping("/order")
-public boolean createOrder(@RequestBody PayementDTO p) throws RazorpayException{
+public long createOrder(@RequestBody PayementDTO p) throws RazorpayException{
 	RazorpayClient client=new RazorpayClient("rzp_test_1Vn4YmQoYAJHMW","9i9qTrPg47LL3Q4lZr3FyLNQ");
 	JSONObject obj=new JSONObject();
 	obj.put("amount",(p.getAmount()*100));
@@ -82,13 +85,27 @@ public boolean createOrder(@RequestBody PayementDTO p) throws RazorpayException{
 	Bookings b=mapper.map(bookingService.getBooking(p.getBookingID()), Bookings.class);
 	saveOrder.setBookingsID(b.getBookingID());
 	saveOrder.setOrderID(o.get("id"));
+	saveOrder.setStatus(o.get("status"));
 	oRepo.save(saveOrder);
 	System.out.println(o);
 	if(oRepo.existsById(saveOrder.getId())) {
-		return true;
+		return saveOrder.getId();
 	}
 	else {
-		return false;
+		return 0;
+	}
+}
+@PutMapping("/updateOrder/{id}")
+public ApiResponse updateOrder(@PathVariable long id) {
+//	Orders o =oRepo.findByOrderID(id);
+	Orders o =oRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Invalid order ID , order not found !!!!"));
+	o.setStatus("paid");
+	oRepo.save(o);
+	if((o.getStatus().equals("paid"))) {
+		return new ApiResponse("updated");
+	}
+	else {
+		return new ApiResponse("failed");
 	}
 }
 }
