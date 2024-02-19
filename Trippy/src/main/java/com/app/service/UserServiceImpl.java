@@ -14,6 +14,7 @@ import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dto.ApiResponse;
 import com.app.dto.UserDTO;
 import com.app.dto.UserDTOSignedIN;
+import com.app.dto.UserDTOupdation;
 import com.app.entities.User;
 import com.app.repository.UserInterface;
 
@@ -58,17 +59,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDTO update(UserDTO user, long id) {
+	public UserDTOupdation update(UserDTOupdation user, long id) {
 		User ogUser=ur.findById(id).orElseThrow(()->new ResourceNotFoundException("User not found"));
 		mapper.map(user,ogUser);
 		System.out.println(ogUser.getUserID());
 		 ogUser.setUserName(user.getUserName());
 		    ogUser.setAddress(user.getAddress());
-		    ogUser.setEmail(user.getEmail());
 		    ogUser.setPhoneNo(user.getPhoneNo());
-		    ogUser.setPassword(user.getPassword());
+		    ogUser.setGender(user.getGender());
 		    User saved=ur.save(ogUser);
-		return mapper.map(saved, UserDTO.class);
+		return mapper.map(saved, UserDTOupdation.class);
 	}
 
 	@Override
